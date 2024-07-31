@@ -87,8 +87,12 @@ function create() {
   this.cameras.main.startFollow(this.mario);
 
   createAnimations(this);
-  this.enemy.anims.play("goomba-walk");
+  this.enemy.anims.play("goomba-walk", true);
   this.keys = this.input.keyboard.createCursorKeys();
+
+  this.comm = {
+    r: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R),
+  };
 }
 
 function onEnemyHit(sound, scene) {
