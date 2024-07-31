@@ -43,6 +43,7 @@ function preload() {
   });
 
   this.load.audio("gameover", "assets/sound/music/gameover.mp3");
+  this.load.audio("goomba-stomp", "assets/sound/effects/goomba-stomp.wav");
 } // 1.
 
 function create() {
@@ -68,7 +69,7 @@ function create() {
     .setGravityY(300);
 
   this.enemy = this.physics.add
-    .sprite(120, config.height - 64, "goomba")
+    .sprite(280, config.height - 64, "goomba")
     .setOrigin(0, 1)
     .setGravityY(300)
     .setVelocityX(-50);
@@ -95,13 +96,14 @@ function onEnemyHit(sound, scene) {
     if (mario.body.touching.down && enemy.body.touching.up) {
       mario.setVelocityY(-200);
       enemy.anims.play("goomba-hurt");
+      sound.add("goomba-stomp", { volume: 0.2 }).play();
       enemy.setVelocityX(0);
       setTimeout(() => {
         enemy.destroy();
       }, 500);
     } else {
-      killMario(mario, sound, scene);
       enemy.setVelocityX(0);
+      killMario(mario, sound, scene);
     }
   };
 }
